@@ -120,16 +120,19 @@ if not SKIP_CUDA_BUILD:
         cuda_version_for_arch = bare_metal_version
     # cc_flag.append("-gencode")
     # cc_flag.append("arch=compute_75,code=sm_75")
-    cc_flag.append("-gencode")
-    cc_flag.append("arch=compute_80,code=sm_80")
-    if cuda_version_for_arch and cuda_version_for_arch >= Version("11.8"):
+    # cc_flag.append("-gencode")
+    # cc_flag.append("arch=compute_80,code=sm_80")
+    if cuda_version_for_arch and cuda_version_for_arch >= Version("11.8") and cuda_version_for_arch < Version("12.4"):
         cc_flag.append("-gencode")
         cc_flag.append("arch=compute_89,code=sm_89")
         cc_flag.append("-gencode")
         cc_flag.append("arch=compute_90,code=sm_90")
-    if cuda_version_for_arch and cuda_version_for_arch >= Version("12.4"):
+    if cuda_version_for_arch and cuda_version_for_arch >= Version("12.4") and cuda_version_for_arch < Version("12.8"):
         cc_flag.append("-gencode")
         cc_flag.append("arch=compute_100,code=sm_100")
+    if cuda_version_for_arch and cuda_version_for_arch >= Version("12.8"):
+        cc_flag.append("-gencode")
+        cc_flag.append("arch=compute_120,code=sm_120")
 
     # HACK: The compiler flag -D_GLIBCXX_USE_CXX11_ABI is set to be the same as
     # torch._C._GLIBCXX_USE_CXX11_ABI
